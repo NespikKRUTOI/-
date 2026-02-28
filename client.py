@@ -24,7 +24,7 @@ def connect_to_server():
 
 
 def receive():
-    global buffer, game_state, game_over
+    global buffer, game_state, game_over, client
     while not game_over:
         try:
             data = client.recv(1024).decode()
@@ -33,8 +33,9 @@ def receive():
                 packet, buffer = buffer.split("\n", 1)
                 if packet.strip():
                     game_state = json.loads(packet)
-        except:
-            game_state["winner"] = -1
+        except Exception as e:
+            if game_state:
+                game_state["winner"] = -1
             break
 
 # --- ШРИФТИ ---
@@ -48,6 +49,9 @@ font_main = font.Font(None, 36)
 game_over = False
 winner = None
 you_winner = None
+buffer = ""
+game_state = {}
+client = None
 my_id, game_state, buffer, client = connect_to_server()
 Thread(target=receive, daemon=True).start()
 while True:
