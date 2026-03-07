@@ -3,6 +3,8 @@ import socket
 import json
 from threading import Thread
 
+mixer.init()
+
 # ---ПУГАМЕ НАЛАШТУВАННЯ ---
 WIDTH, HEIGHT = 800, 600
 init()
@@ -42,6 +44,7 @@ def receive():
 font_win = font.Font(None, 72)
 font_main = font.Font(None, 36)
 # --- ЗОБРАЖЕННЯ ----
+# game_bg = image.load("")  # Зображення буде завантажено після того, як буде вказаний файл
 
 # --- ЗВУКИ ---
 
